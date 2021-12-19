@@ -1,9 +1,13 @@
-import {Outlet, LiveReload, Link} from 'remix'
+import {Outlet, LiveReload, Link} from 'remix';
+import globalStyleUrl from '~/styles/global.css'
 
 export default function App(){
   return(
     <Document>
-      <Outlet/>
+      <Layout>
+
+        <Outlet/>
+      </Layout>
     </Document>
   )
 }
@@ -12,14 +16,12 @@ function Document({children, title}){
   return(
     <html lang='en'>
       <head>
+        <link rel="stylesheet" href={globalStyleUrl} />
         <title>{title ? title : 'Remix by Mostafa'}</title>
       </head>
       <body>
         
-        <Layout>
-
-        <Outlet/>
-        </Layout>
+        {children}
 
         {process.env.NODE_ENV === 'development' ?
         <LiveReload/> : null  }
@@ -45,6 +47,10 @@ function Layout({children}){
         </li>
       </ul>
      </nav>
+
+     <div className="container">
+       {children}
+     </div>
     </>
   )
 }
